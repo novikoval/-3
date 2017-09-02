@@ -10,112 +10,85 @@ namespace задание_7
     {
         static int count = 1;
 
-        static void ArrayOutput(int[] arr)
+        static void ArrayOutput(string[] arr)
         {
             Console.Write("{0}: ", count);
-            foreach (int x in arr)
+            foreach (string x in arr)
                 Console.Write(x + " ");
             count++;
             Console.WriteLine();
         }
 
-        static void F(int c, int k, int n, ref int[] arr)
+        static string[] ArrayInput(int a)
         {
-            while (arr[k - c] < n)//группа эл-тов, где все, кроме последнего, наименьшие
-            {
-                arr[k - c]++;
-                ArrayOutput(arr);
-            }
-            c++;
-            arr[k - c]++;
-
-            for (int j = k - c + 1; j < k; j++) arr[j] = arr[k - c];
-            ArrayOutput(arr);
+            string[] mas = new string[a];
+            Console.WriteLine("Input {0} elements:", a);
+            for (int i = 0; i < a; i++) mas[i] = Console.ReadLine();
+            return mas;
         }
 
-        static void Func(int[] arr, int k, int n, int c)
+        static int ReadInt(string msg, string msg1, long border)
         {
-            while (arr[k - c] < n)
+            int size = 0; bool ok;
+            do
             {
-                arr[k - c]++;
-                ArrayOutput(arr);
-            }
-            if (c < k)
-            {
-                arr[k - c - 1]++;
-                while (arr[k - c] == arr[k - c - 1])
+                Console.WriteLine(msg);
+                //проверяем формат
+                try
                 {
-                    c++;
-                    ArrayOutput(arr);
-                    arr[k - c - 1]++;
-                    for (int j = k - c; j < k; j++) arr[j] = arr[k - c - 1];
-                    //c++;
-                    ArrayOutput(arr);
-                    c--;
-                    for (int j = k - c; j < k; j++) arr[j] = arr[k - c - 1];
-                    //c++;
-                    ArrayOutput(arr);
+                    size = Convert.ToInt32(Console.ReadLine());
+                    ok = true;
+                    if (size == 1) { Console.WriteLine(msg1); Console.WriteLine(); }
+                    else if ((size < 1) || (size > border))
+                    {
+                        Console.WriteLine("Input error. Please, try again");
+                        Console.WriteLine();
+                    };
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("Input error. Please, try again");
+                    Console.WriteLine();
+                    ok = false;
                 }
 
-
-                for (int j = k - c; j < k; j++) arr[j] = arr[k - c - 1];
-                //c++;
-                ArrayOutput(arr);
-
-                if ((arr[k - c] < n))
-                    Func(arr, k, n, c);
-            }
-            ArrayOutput(arr);
-
+            } while ((!ok) || (size <= 1) || (size > border));
+            return size;
         }
-
+         
         static void Main(string[] args)
         {
-            int k = 4, n = 3;
-            int[] arr = { 1, 1, 1, 1 };
+            int k = ReadInt("Input k:","K should be more than 2",1000), n = ReadInt("Input n:", "n should be more than 2", 1000);
+            string[] nabor = ArrayInput(n);
+            Array.Sort(nabor);
+            string[] arr = new string[k];
+            for(int i=0; i<k; i++)
+            {
+                arr[i] = nabor[0];
+            }
+            
             ArrayOutput(arr);
             int c = 1;
 
-            //for (int i = 0; i < k; i++) //для каждой группы, где наименьших эл-тов: к-1, ..., к-к. Итого k групп
-            //{
-            /*  while (arr[k - c] < n)//группа эл-тов, где все, кроме последнего, наименьшие
-              {
-                  arr[k - c]++;
-                  //for (int j = k - c + 1; j < k; j++) arr[j] = arr[k - c];
-                  ArrayOutput(arr);
-              }
 
-              c++;
-              arr[k - c]++;
-              for (int j = k - c + 1; j < k; j++) arr[j] = arr[k - c];
-              ArrayOutput(arr);
+            while (arr[0] != nabor[n-1])
+            {
+                c=0;
+                while (arr[k - 1] != nabor[n-1])
+                {
+                    arr[k - 1] = nabor[Array.IndexOf(nabor, arr[k-1])+1];
+                    ArrayOutput(arr);
+                }
 
-              F(1, k, n, ref arr);
+                do
+                {
+                    c++;
+                    arr[k - c - 1] = nabor[Array.IndexOf(nabor, arr[k - c - 1])+1];
+                    for (int j = k - c; j < k; j++) arr[j] = arr[k - c - 1];
+                    ArrayOutput(arr);
 
-
-              c++;
-              arr[k - c]++;
-              for (int j = k - c + 1; j < k; j++) arr[j] = arr[k - c];
-              ArrayOutput(arr);
-
-              F(1, k, n, ref arr);
-
-              arr[k - c]++;
-              ArrayOutput(arr);
-
-              c++;
-              arr[k - c]++;
-              for (int j = k - c + 1; j < k; j++) arr[j] = arr[k - c];
-              ArrayOutput(arr);
-
-              F(1, k, n, ref arr);
-
-              arr[k - c]++;
-              ArrayOutput(arr); */
-
-
-
-            Func(arr, k, n, c);
+                } while (arr[k - c - 1] == nabor[n-1] && c<k-1);
+            }
 
         }
     }

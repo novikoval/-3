@@ -77,10 +77,6 @@ namespace Задание_6
                 return a3;
             }
 
-            double a = F(N - 1);
-            double b = F(N - 2);
-            double c = F(N - 3);
-
             return 13 * F(N - 1) - 10 * F(N - 2) + F(N - 3);
         }
 
@@ -107,8 +103,6 @@ namespace Задание_6
                     ch = an;
                 }
             }
-
-
 
             if (incr) Console.WriteLine("The sequence is increasing");
             else Console.WriteLine("The sequence is not increasing");

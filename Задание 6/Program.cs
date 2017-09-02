@@ -56,92 +56,59 @@ namespace Задание_6
             return number;
         }
 
-        //static double Fn(int N)
-        //{
-        //    double res = 13*Fn(N-1)-10*Fn(N-2)+Fn(N-3);
-        //    return  res;
-        //}
-
-        //static double Fn(int N, double a1, double a2, double a3)
-        //{
-        //    double res = 13 * a3 - 10 * a2 + a1;
-        //    return res;
-        //}
-
-        //static double Fn(int N, double a2, double a3)
-        //{
-        //    double res = 13 * Fn(N - 1) - 10 * a3 + a2;
-        //    return res;
-        //}
         static double a1, a2, a3;
-
-
-
-        static double Fn(double an1, double an2, double an3, ref bool incr, int N)
-        {
-            double res = 0;
-            for (int i = 4; i <= N; i++)
-            {
-                res = Fn(an1, an2, an3, ref incr, N);
-                Console.WriteLine("a{0} = {1}", i, res);
-                if (an2 >= res) incr = false;
-                an3 = an2;
-                an2 = an1;
-            }
-            return res;
-        }
 
         static double F(int N)
         {
-
-
-            //Console.WriteLine("a{0} = {1}", i, res);
            
 
             if (N == 1)
             {
-                Console.WriteLine("a{0} = {1}", N, a1);
                 return a1;
             }
 
             if (N == 2)
             {
-                Console.WriteLine("a{0} = {1}", N, a2);
                 return a2;
             }
 
             if (N == 3)
             {
-                Console.WriteLine("a{0} = {1}", N, a3);
                 return a3;
             }
 
-            
-            double an = 13 * F(N - 1) - 10 * F(N - 2) + F(N - 3);
+            double a = F(N - 1);
+            double b = F(N - 2);
+            double c = F(N - 3);
 
-            return an;
+            return 13 * F(N - 1) - 10 * F(N - 2) + F(N - 3);
         }
 
         static void Main(string[] args)
         {
-            double a1, a2, a3;
+            Console.WriteLine("Input a1:");
             a1 = ReadDouble();
+            Console.WriteLine("Input a2:");
             a2 = ReadDouble();
+            Console.WriteLine("Input a3:");
             a3 = ReadDouble();
             int N = ReadInt("Input N", "Consequence cannot be empty", 10000000000);
 
             bool incr = true;
-            Console.WriteLine("a1 = {0}", a1);
-            Console.WriteLine("a2 = {0}", a2);
-            Console.WriteLine("a3 = {0}", a3);
-            double an1 = a3, an2 = a2, an3 = a1;
-            //double an = Fn(an1, an2, an3);
-            //Console.WriteLine("a{0} = {1}", n, an);
+            double ch = a2; //переменная для хранения элемента с четным индексом для сравнения со следующим четным
 
-            //double an = F(N);
-            //an1 = an;
+            for (int i = 1; i <= N; i++)
+            {
+                double an = F(i);
+                Console.WriteLine("a{0} = {1}", i, an);
+                if (i%2==0 && an < ch)
+                {
+                    incr = false;
+                    ch = an;
+                }
+            }
 
-            Console.WriteLine("a{0} = {1}", N, F(N));
+
 
             if (incr) Console.WriteLine("The sequence is increasing");
             else Console.WriteLine("The sequence is not increasing");

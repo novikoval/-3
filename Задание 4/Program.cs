@@ -32,11 +32,17 @@ namespace Задание_4
         static void Main(string[] args)
         {
             double u1, u2, v1, v2, w1, w2;
+            Console.WriteLine("Input u1");
             u1 = ReadDouble();
+            Console.WriteLine("Input u2");
             u2 = ReadDouble();
+            Console.WriteLine("Input v1");
             v1 = ReadDouble();
+            Console.WriteLine("Input v2");
             v2 = ReadDouble();
+            Console.WriteLine("Input w1");
             w1 = ReadDouble();
+            Console.WriteLine("Input w2");
             w2 = ReadDouble();
 
             Complex u = new Complex(u1, u2);

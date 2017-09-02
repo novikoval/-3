@@ -82,15 +82,26 @@ namespace Задание_5
 
         static void Main(string[] args)
         {
+            bool ravn = true;
             int size = ReadInt("Input the size of your matr", "The matr cannot be empty", 100);
             double[,] matr = new double[size, size];
             matr = MatrInput(size);
             double max = -100000000000000;
+            //обход нужных элементов для нахождения максимума
             for (int i = size / 2; i < size; i++)
                 for (int j = size - i - 1; j < i + 1; j++)
-                    if (matr[i, j] > max)
+                 if (matr[i, j] > max)
                         max = matr[i, j];
+
+            //обход нужных элементов для проверки, не равные ли они
+            for (int i = size / 2; i < size; i++)
+                for (int j = size - i - 1; j < i + 1; j++)
+                    if (matr[i, j] != max)
+                        ravn = false;
+            // else
             MatrOutput("Your matr", matr);
+            if (ravn) Console.WriteLine("No maximum value");
+            else 
             Console.WriteLine("The max value is {0}", max);
         }
     }

@@ -79,34 +79,25 @@ namespace задание_8
         {
 
             
-            //while (deg[first] != 0) ++first; //
-
-            ////int v1 = -1, v2 = -1; //
-            //bool bad = false;
-            //for (int i = 0; i < n; ++i)
-            //    if ((deg[i] & 1) !=0)
-            //        if (v1 == -1)
-            //            v1 = i;
-            //        else if (v2 == -1)
-            //            v2 = i;
-            //        else
-            //            bad = true;
-
-            //if (v1 != -1)
-            //{
-            //    ++g[v1, v2];
-            //    ++g[v2, v1];
-            //}
-
-
             
             bool bad = false;
             int n = ReadInt("Input the number of vertexes:", "The graph cannot be empty. Try again, please.", 1000);  //количество вершин
             int[,] g = new int[n,n];
+            g = ArrayInput(n, n);
+            int[] deg = new int[n]; //масссив степеней вершин
+            for (int i = 0; i < n; ++i)
+                for (int j = 0; j < n; ++j)
+                    deg[i] += g[i, j];
+
+            //проверяем, что ввели действительно эйлеров граф
+            for (int i = 0; i < n; ++i)
+                if (deg[i] % 2 != 0) //если степень хотя бы одной вершины нечетная, то граф не эйлеров
+                    bad = true;
             while (bad)
-            {            
+            {
+                Console.WriteLine("Your graph does not contain Eiler's circle");       
                 g = ArrayInput(n, n);
-                int[] deg = new int[n]; //масссив степеней вершин
+                deg = new int[n]; //масссив степеней вершин
                 for (int i = 0; i < n; ++i)
                     for (int j = 0; j < n; ++j)
                         deg[i] += g[i, j];
@@ -116,11 +107,6 @@ namespace задание_8
                     if (deg[i] % 2 != 0) //если степень хотя бы одной вершины нечетная, то граф не эйлеров
                         bad = true;
             }
-
-            //int[,] g1 = new int[n, n];
-            //for (int i = 0; i < n; i++)
-            //    for (int j = 0; j < n; j++)
-            //        g1[i, j] = g[i,j];
 
             int first = n - 1;
 
@@ -150,29 +136,7 @@ namespace задание_8
             }
         }
 
-            //if (v1 != -1)
-            //    for (int i = 0; i + 1 < res.Count(); ++i)
-            //        if (res[i] == v1 && res[i + 1] == v2 || res[i] == v2 && res[i + 1] == v1)
-            //        {
-            //            int [] res2;
-            //            for (int j = i + 1; j < res.Count(); ++j)
-            //                res2.Push_back(res[j]);
-            //            for (int j = 1; j <= i; ++j)
-            //                res2.Push_back(res[j]);
-            //            res = res2;
-            //            break;
-            //        }
-
-            //for (int i = 0; i < n; ++i)
-            //    for (int j = 0; j < n; ++j)
-            //        if (g[i, j] != 0)
-            //            bad = true;
-
-            //if (bad) 
-            //    puts("-1");
-            //else
-            //    for (int i = 0; i < res.Count(); ++i)
-            //        Console.Write("%d ", res[i] + 1);
+  
 
             Console.WriteLine(res);
         }

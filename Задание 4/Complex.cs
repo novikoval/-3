@@ -36,9 +36,12 @@ namespace Задание_4
             this.imag = i;
         } 
         public void Show() //метод для вывода   
-        {
-            if (this.imag > 0) Console.WriteLine("{0} + i{1}", real, imag);
-            else Console.WriteLine("{0} i{1}", real, imag);
+        {   if (imag != 0)
+            {
+                if (this.imag > 0) Console.WriteLine("{0} + i{1}", real, imag);
+                else Console.WriteLine("{0} - i{1}", real, Math.Abs(imag));
+            }
+            else Console.WriteLine("{0}", real);
         }
 
         public override string ToString()
@@ -67,7 +70,12 @@ namespace Задание_4
 
         public static Complex operator /(Complex A, Complex B)
         {
-            Complex res = new Complex((A.real * B.real + A.imag * B.imag)/(B.real*B.real + B.imag*B.imag), (A.imag * B.real - A.real * B.imag) / (B.real * B.real + B.imag * B.imag));
+            Complex res = new Complex();
+            if (B.real * B.real + B.imag * B.imag != 0)
+                res = new Complex((A.real * B.real + A.imag * B.imag) / (B.real * B.real + B.imag * B.imag), (A.imag * B.real - A.real * B.imag) / (B.real * B.real + B.imag * B.imag));
+
+            else
+                Console.WriteLine("Error! You have 0 in denominator. You answer isn't correct. Please, try again");
             return res;
         }
 

@@ -8,6 +8,7 @@ namespace задание_9
 {
     class Point1
     {
+
         public int data;//информационное поле
         public Point1 next;//адресное поле
         public Point1()//конструктор без параметров
@@ -66,12 +67,12 @@ namespace задание_9
         static Point1 MakeListToEnd(int size) //добавление в конец
         {
             Random rnd = new Random();
-            int info = rnd.Next(-1, 2);
+            int info = rnd.Next(-3, 3);
             Point1 run = MakePoint1(info);//первый элемент
             Point1 r = run;//переменная хранит адрес конца списка 
             for (int i = 1; i < size; i++)
             {
-                info = rnd.Next(-1, 1);
+                info = rnd.Next(-3, 3);
                 //создаем элемент и добавляем в конец списка
                 Point1 p = MakePoint1(info);
                 r.next = p;
@@ -91,28 +92,24 @@ namespace задание_9
 
                 //вспом. переменная для прохода по списку
                 Point1 p = beg;
-            //p.next = beg.next;
-                ////ищем конец списка
-                //for (int i = 0; p.next == null; i++)
-                //{
-                //    p = p.next;
-                //}
+            while (p.next != null) p = p.next;
             //добавляем новый элемент
-                NewPoint.next = p.next;
             p.next = NewPoint;
-            //p.next = NewPoint;
-           // p = p.next;
             return beg;
         }
         static void ShowList1(Point1 beg)
         {
-            Point1 p = beg;
-            while (p != null)
+            if (beg == null) Console.WriteLine("The list is empty");
+            else
             {
-                Console.Write(p.data.ToString());
-                p = p.next;
+                Point1 p = beg;
+                while (p != null)
+                {
+                    Console.Write(p.data.ToString() + " ");
+                    p = p.next;
+                }
+                Console.WriteLine();
             }
-            Console.WriteLine();
         }
 
 
@@ -121,44 +118,47 @@ namespace задание_9
         {
             int size = ReadInt("Input the size of list", "Ypur list will be empty. Please, try again", 1000);
             Point1 beg = MakeListToEnd(size);
+            ShowList1(beg);
             Point1 pos = null;
             Point1 neg = null;
             Point1 p = beg;
             bool notfirst = false;
-            //if (p.data > 0) AddPoint(pos, p.data);
-            //else AddPoint(neg, p.data);
-            ////исключаем элемент из исходного списка
-            //p= p.next;
-            //обходим исходный список
 
-            for (int i = 1; p != null; i++)
+            for (; p.next != null;)
             {
-                if (!notfirst)
+                if (!notfirst)          //пока не встретим первый ноль
                 {
-                    if (p.data != 0)//если элемент не 0 
+                    if (p.data != 0)    //если элемент не 0 
                     {
                         if (p.data > 0) pos = AddPoint(pos, p.data);
                         else neg = AddPoint(neg, p.data);
                         //исключаем элемент из исходного списка
                         beg = p.next;
+                        p = p.next;
                     }
-                    else { /*p = p.next;*/ notfirst = true; }
-                    }
+                    else notfirst = true;
+                }
                 else
                 {
-                    Point1 pbeg = beg;
-                    if (p.data != 0)//если элемент не 0 
+                    if (p.next!=null & p.next.data != 0)//если элемент не 0 
                     {
-                        if (p.data > 0) AddPoint(pos, p.data);
-                        else AddPoint(neg, p.data);
+                        if (p.next.data > 0) pos = AddPoint(pos, p.next.data);
+                        else neg = AddPoint(neg, p.next.data);
                         //исключаем элемент из исходного списка
-                        pbeg.next = pbeg.next.next;
-                        //p = p.next;
-                        p = pbeg;
-                    }                 
+                        p.next = p.next.next;
+                    }
+                   else p = p.next;
                 }
-                p = p.next;
             }
+            //если нет нулей, последний элемент остался нерассмотренным
+            if (beg.next == null && !notfirst)
+            {
+                if (beg.data > 0) pos = AddPoint(pos, beg.data);
+                else neg = AddPoint(neg, beg.data);
+                beg = null;
+            }
+
+
 
             Console.WriteLine("The old list:");
             ShowList1(beg);

@@ -89,7 +89,6 @@ namespace задание_7
 
                 } while (arr[k - c - 1] == nabor[n-1] && c<k-1);
             }
-
         }
     }
 }

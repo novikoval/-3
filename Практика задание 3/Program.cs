@@ -27,6 +27,7 @@ namespace Практика_задание_3
             } while (!ok);
             return number;
         }
+
         static void Main(string[] args)
         {
             double X, Y;

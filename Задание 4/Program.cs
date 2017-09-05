@@ -27,8 +27,6 @@ namespace Задание_4
             return number;
         }
 
-
-
         static void Main(string[] args)
         {
             double u1, u2, v1, v2, w1, w2;
@@ -45,10 +43,13 @@ namespace Задание_4
             Console.WriteLine("Input w2");
             w2 = ReadDouble();
 
-            Complex u = new Complex(u1, u2);
+            Complex u = new Complex(u1, u2); 
             Complex v = new Complex(v1, v2);
             Complex w = new Complex(w1, w2);
-            Complex res = 2 * u + (3 * u * w) / (2 + w - v) - 7;
+            Complex res1 = 2 * u;
+            Complex res2 =  (3 * u * w) ;
+            Complex res3 =  (2 + w - v) ;
+            Complex res = res1 + res2 / res3 - 7;
             res.Show();
         }
     }

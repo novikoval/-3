@@ -33,7 +33,7 @@ namespace Задание_6
                     ok = false;
                 }
 
-            } while ((!ok) || (size <= 0) || (size > border));
+            } while ((!ok) || (size <= 3) || (size > border));
             return size;
         }
 
@@ -104,7 +104,7 @@ namespace Задание_6
                 }
             }
 
-            if (incr) Console.WriteLine("The sequence is increasing");
+            if (incr&&N>=4) Console.WriteLine("The sequence is increasing");
             else Console.WriteLine("The sequence is not increasing");
         }
     }

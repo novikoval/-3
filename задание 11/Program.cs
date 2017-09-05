@@ -41,7 +41,7 @@ namespace задание_11
         static int[] ArrayInput(int a)
         {
             int[] mas = new int[a];
-            for (int i = 0; i < a; i++) mas[i] = ReadInt("Input cipher", "", 1000000);
+            for (int i = 0; i < a; i++) { mas[i] = ReadInt("Input cipher", "", 1000000);   }
             return mas;
         }
 

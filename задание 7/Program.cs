@@ -23,7 +23,20 @@ namespace задание_7
         {
             string[] mas = new string[a];
             Console.WriteLine("Input {0} elements:", a);
-            for (int i = 0; i < a; i++) mas[i] = Console.ReadLine();
+            for (int i = 0; i < a; i++)
+            {
+                string[] arr = new string[i];
+                for (int j=0; j<i; j++)
+                {
+                    arr[j] = mas[j];
+                }
+                mas[i] = Console.ReadLine();
+                while (arr.Contains(mas[i]))
+                    {
+                    Console.WriteLine("This element already is in array. Please, input another element");
+                    mas[i] = Console.ReadLine();
+                }
+            }
             return mas;
         }
 
